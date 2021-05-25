@@ -1,0 +1,4 @@
+#ignore visual studio files and temp folder
+.vs/
+.vsconfig
+Temp/

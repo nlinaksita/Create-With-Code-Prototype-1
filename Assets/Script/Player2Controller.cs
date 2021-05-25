@@ -11,11 +11,13 @@ public class Player2Controller : MonoBehaviour
     private float forwardInput;
 
     private GameObject spawnManager;
+    private GameObject player1;
     private Vector3 startPosition = new Vector3(3,0,0);
     // Start is called before the first frame update
     void Start()
     {
         spawnManager = GameObject.Find("SpawnManager");
+        player1 = GameObject.Find("Player1");
     }
 
     // Update is called once per frame
@@ -32,8 +34,7 @@ public class Player2Controller : MonoBehaviour
         // If the player falls through the floor, reset position
         if (transform.position.y < -1)
         {
-            transform.rotation = Quaternion.identity;
-            transform.position = startPosition;
+            ResetPosition();
         }
     }
 
@@ -44,9 +45,16 @@ public class Player2Controller : MonoBehaviour
         {
             // Reset player position
             transform.position = Vector3.zero;
+            player1.GetComponent<Player1Controller>().ResetPosition();
 
             // Reset spawnManager objects
             spawnManager.GetComponent<SpawnManager>().LevelUp();
         }
+    }
+
+    public void ResetPosition()
+    {
+        transform.rotation = Quaternion.identity;
+        transform.position = startPosition;
     }
 }

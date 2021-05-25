@@ -68,6 +68,7 @@
     <Compile Include="Assets\Script\FollowPlayer1.cs" />
     <Compile Include="Assets\Script\FollowPlayer2.cs" />
     <Compile Include="Assets\Script\IncomingCar.cs" />
+    <Compile Include="Assets\Script\MenuControl.cs" />
     <Compile Include="Assets\Script\Player1Controller.cs" />
     <Compile Include="Assets\Script\Player2Controller.cs" />
     <Compile Include="Assets\Script\SpawnManager.cs" />

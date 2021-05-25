@@ -11,10 +11,12 @@ public class SpawnManager : MonoBehaviour
     private int waveNumber = 1;
     private int enemyCount = 0;
     private float vehicleSpeed = 10f;
+    private float vehicleSpawnDelay = 2.0f;
     // Start is called before the first frame update
     void Start()
     {
-        SpawnVehicleWave(waveNumber);
+        //SpawnVehicleWave(waveNumber);
+        StartCoroutine(SpawnVehicle());
     }
 
     // Update is called once per frame
@@ -23,27 +25,40 @@ public class SpawnManager : MonoBehaviour
         if (enemyCount <= 0)
         {
             IncreaseDifficulty();
-            SpawnVehicleWave(waveNumber);
+            //StartCoroutine(SpawnVehicleWave(waveNumber));
+            StartCoroutine(SpawnVehicle());
         }
     }
 
-    void SpawnVehicleWave(int waveNumber)
+    private void SpawnVehicleWave(int waveNumber)
     {
         // Spawn a wave of incoming vehicles
         for (int i = 0; i < waveNumber; i++)
         {
-            GameObject vehicle = vehiclePrefabs[Random.Range(0, vehiclePrefabs.Length - 1)];
-            vehicle.GetComponent<IncomingCar>().vehicleSpeed = vehicleSpeed;
-            Instantiate(vehicle, GenerateSpawnPosition(), vehicle.transform.rotation);
+            // Allow for vehicleSpawnDelay seconds of delay in between each vehicle spawn
+            //StartCoroutine(SpawnVehicle());
+            Invoke("SpawnVehicle", vehicleSpawnDelay);
             enemyCount++;
+            //yield return new WaitForSeconds(vehicleSpawnDelay);
         }
+    }
+
+    // Spawns the actual vehicle
+    private IEnumerator SpawnVehicle()
+    {
+        GameObject vehicle = vehiclePrefabs[Random.Range(0, vehiclePrefabs.Length - 1)];
+        vehicle.GetComponent<IncomingCar>().vehicleSpeed = vehicleSpeed;
+        Instantiate(vehicle, GenerateSpawnPosition(), vehicle.transform.rotation);
+        enemyCount++;
+        yield return new WaitForSeconds(vehicleSpawnDelay);
     }
 
     // Increase the wave number if all the vehicles in the wave have been destroyed
     private void IncreaseDifficulty()
     {
-        waveNumber++;
-        vehicleSpeed += 10f;
+        //waveNumber++;
+        vehicleSpeed += 5f;
+        vehicleSpawnDelay *= 0.9f;
     }
 
     // Generate a spawn position
@@ -56,4 +71,6 @@ public class SpawnManager : MonoBehaviour
     {
         enemyCount--;
     }
+
+    
 }

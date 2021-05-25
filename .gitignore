@@ -2,3 +2,5 @@
 .vs/
 .vsconfig
 Temp/
+*.log
+*.cache

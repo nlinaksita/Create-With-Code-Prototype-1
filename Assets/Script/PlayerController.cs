@@ -27,6 +27,13 @@ public class PlayerController : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
         // Move the vehicle forward based on horizontal input
         transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
+
+        // If the player falls through the floor, reset position
+        if (transform.position.y < -1)
+        {
+            transform.rotation = Quaternion.identity;
+            transform.position = Vector3.zero;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

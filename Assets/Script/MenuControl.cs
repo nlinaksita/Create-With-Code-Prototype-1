@@ -101,6 +101,7 @@ public class MenuControl : MonoBehaviour
         // Reactivate player 2 objects
         player2.gameObject.SetActive(true);
         player2Camera.gameObject.SetActive(true);
+        player2Instructions.gameObject.SetActive(true);
 
         // Reset spawn manager
         spawnManager.GetComponent<SpawnManager>().ResetGame();

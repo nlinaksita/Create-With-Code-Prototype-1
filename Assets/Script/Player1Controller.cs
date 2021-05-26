@@ -43,7 +43,7 @@ public class Player1Controller : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
+        //Debug.Log(other.name);
         if (other.name == "Finish")
         {
             // Reset player position
@@ -52,6 +52,10 @@ public class Player1Controller : MonoBehaviour
 
             // Reset spawnManager objects
             spawnManager.GetComponent<SpawnManager>().LevelUp();
+
+            // Increase speed
+            IncreaseSpeed();
+            player2.GetComponent<Player2Controller>().IncreaseSpeed();
         }
     }
 
@@ -65,12 +69,25 @@ public class Player1Controller : MonoBehaviour
     {
         startPosition = multiStartPosition;
         ResetPosition();
-
+        ResetSpeed();
     }
 
     public void SetSolo()
     {
         startPosition = soloStartPosition;
         ResetPosition();
+        ResetSpeed();
+    }
+
+    public void IncreaseSpeed()
+    {
+        speed += 2f;
+        turnSpeed += 5f;
+    }
+
+    private void ResetSpeed()
+    {
+        speed = 20f;
+        turnSpeed = 45f;
     }
 }

@@ -24,7 +24,6 @@ public class IncomingCar : MonoBehaviour
         // Destroy the vehicle if it is past the designated zBound
         if (transform.position.z <= zBound)
         {
-            spawnManager.GetComponent<SpawnManager>().DecreaseEnemyCount();
             Destroy(gameObject);
             vehicleSpeed += 10f;
             

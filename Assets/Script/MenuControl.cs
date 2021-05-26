@@ -10,6 +10,7 @@ public class MenuControl : MonoBehaviour
     public GameObject gameModeButtons;
     public Text player1Pause;
     public Text player2Pause;
+    public Text startTitle;
     public Text player2Instructions;
     private bool game1Paused; // Player 1 paused the game
     private bool game2Paused; // Player 2 paused the game
@@ -28,6 +29,12 @@ public class MenuControl : MonoBehaviour
     {
         // Clear the Pause menu UI
         DeactivateAll();
+
+        // Build the start menu
+        startTitle.gameObject.SetActive(true);
+        pauseMenu.gameObject.SetActive(true);
+        gameModeButtons.gameObject.SetActive(true);
+        Time.timeScale = 0;
     }
 
     // Update is called once per frame
@@ -68,6 +75,7 @@ public class MenuControl : MonoBehaviour
 
     public void ConfirmSinglePlayer()
     {
+        startTitle.gameObject.SetActive(false);
         // Remove Player 2 elements
         player2Instructions.gameObject.SetActive(false);
         player2.GetComponent<Player2Controller>().ResetPosition();
@@ -94,12 +102,14 @@ public class MenuControl : MonoBehaviour
 
     public void ConfirmMultiPlayer()
     {
+        startTitle.gameObject.SetActive(false);
         // Modify Player 1 to multiplayer
         player1.GetComponent<Player1Controller>().SetMulti();
         player1Camera.GetComponent<FollowPlayer1>().SetMulti();
 
         // Reactivate player 2 objects
         player2.gameObject.SetActive(true);
+        player2.GetComponent<Player2Controller>().ResetSpeed();
         player2Camera.gameObject.SetActive(true);
         player2Instructions.gameObject.SetActive(true);
 

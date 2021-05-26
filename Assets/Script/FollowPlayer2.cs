@@ -21,7 +21,7 @@ public class FollowPlayer2 : MonoBehaviour
     private void Update()
     {
         // Toggle between 3rd person and driver view
-        if (Input.GetKeyDown(KeyCode.Keypad0))
+        if (Input.GetKeyDown(KeyCode.RightControl))
         {
             // Flip the toggle state
             toggleCam = !toggleCam;

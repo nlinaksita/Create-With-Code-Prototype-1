@@ -12,8 +12,11 @@ public class MenuControl : MonoBehaviour
     public Text player2Pause;
     public Text startTitle;
     public Text startInstructions;
-    public Text winTitle;
+    public Text p1WinTitle;
+    public Text p2WinTitle;
+    public Text drawTitle;
     public Text player2Instructions;
+    public Text player2Score;
     private bool game1Paused; // Player 1 paused the game
     private bool game2Paused; // Player 2 paused the game
     private bool multiplayer;
@@ -56,12 +59,12 @@ public class MenuControl : MonoBehaviour
             Time.timeScale = 1;
             // deactivate all Pause UI components
             DeactivateAll();
-        } else if (Input.GetKeyDown(KeyCode.Delete) && !game1Paused && !game2Paused && multiplayer)
+        } else if (Input.GetKeyDown(KeyCode.RightShift) && !game1Paused && !game2Paused && multiplayer)
         {
             game2Paused = true;
             Time.timeScale = 0;
             PlayerTwoPaused();
-        } else if (Input.GetKeyDown(KeyCode.Delete) && game2Paused)
+        } else if (Input.GetKeyDown(KeyCode.RightShift) && game2Paused)
         {
             game2Paused = false;
             Time.timeScale = 1;
@@ -87,6 +90,7 @@ public class MenuControl : MonoBehaviour
         player2.GetComponent<Player2Controller>().ResetPosition();
         player2.gameObject.SetActive(false);
         player2Camera.gameObject.SetActive(false);
+        player2Score.gameObject.SetActive(false);
 
         // Restart all elements of the game
         // Reset Player 1 camera for solo play
@@ -117,9 +121,10 @@ public class MenuControl : MonoBehaviour
 
         // Reactivate player 2 objects
         player2.gameObject.SetActive(true);
-        player2.GetComponent<Player2Controller>().ResetSpeed();
+        player2.GetComponent<Player2Controller>().SetMulti();
         player2Camera.gameObject.SetActive(true);
         player2Instructions.gameObject.SetActive(true);
+        player2Score.gameObject.SetActive(true);
 
         // Reset spawn manager
         spawnManager.GetComponent<SpawnManager>().ResetGame();
@@ -137,7 +142,9 @@ public class MenuControl : MonoBehaviour
     {
         startTitle.gameObject.SetActive(false);
         startInstructions.gameObject.SetActive(false);
-        winTitle.gameObject.SetActive(false);
+        p1WinTitle.gameObject.SetActive(false);
+        p2WinTitle.gameObject.SetActive(false);
+        drawTitle.gameObject.SetActive(false);
         pauseMenu.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(false);
         gameModeButtons.gameObject.SetActive(false);
@@ -165,7 +172,17 @@ public class MenuControl : MonoBehaviour
     {
         Time.timeScale = 0;
         pauseMenu.gameObject.SetActive(true);
-        winTitle.gameObject.SetActive(true);
+        if (player1.GetComponent<Player1Controller>().score > player2.GetComponent<Player2Controller>().score)
+        {
+            p1WinTitle.gameObject.SetActive(true);
+        } else if (player1.GetComponent<Player1Controller>().score < player2.GetComponent<Player2Controller>().score)
+        {
+            p2WinTitle.gameObject.SetActive(true);
+        } else
+        {
+            drawTitle.gameObject.SetActive(true);
+        }
+
         restartButton.gameObject.SetActive(true);
     }
 }

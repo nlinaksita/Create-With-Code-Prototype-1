@@ -14,7 +14,7 @@ public class SpawnManager : MonoBehaviour
     private int levelNumber = 1;
     private float vehicleSpeed = 10f;
     private float vehicleSpawnDelay = 3.0f;
-    private static int maxLevel = 10;
+    private static int maxLevel = 2;
 
     public Text levelNumberText;
     // Start is called before the first frame update

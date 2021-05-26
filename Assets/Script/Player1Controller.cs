@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player1Controller : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class Player1Controller : MonoBehaviour
     private Vector3 soloStartPosition = Vector3.zero;
     private Vector3 multiStartPosition = new Vector3(-3, 0, 0);
     private Vector3 startPosition;
+
+    // Scoring system
+    public Text scoreText;
+    public int score;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +51,10 @@ public class Player1Controller : MonoBehaviour
         //Debug.Log(other.name);
         if (other.name == "Finish")
         {
+            // Update score
+            score++;
+            scoreText.text = "P1 Score: " + score;
+
             // Reset player position
             transform.position = Vector3.zero;
             player2.GetComponent<Player2Controller>().ResetPosition();
@@ -70,6 +79,8 @@ public class Player1Controller : MonoBehaviour
         startPosition = multiStartPosition;
         ResetPosition();
         ResetSpeed();
+        score = 0;
+        scoreText.text = "P1 Score: " + score;
     }
 
     public void SetSolo()
@@ -77,6 +88,8 @@ public class Player1Controller : MonoBehaviour
         startPosition = soloStartPosition;
         ResetPosition();
         ResetSpeed();
+        score = 0;
+        scoreText.text = "P1 Score: " + score;
     }
 
     public void IncreaseSpeed()
@@ -89,5 +102,11 @@ public class Player1Controller : MonoBehaviour
     {
         speed = 20f;
         turnSpeed = 45f;
+    }
+
+    private void ResetScore()
+    {
+        score = 0;
+        scoreText.text = "P1 Score: " + score;
     }
 }

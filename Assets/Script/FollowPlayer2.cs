@@ -8,6 +8,9 @@ public class FollowPlayer2 : MonoBehaviour
     private Vector3 behindOffset = new Vector3(0, 5, -7);
     private Vector3 driverOffset = new Vector3(0, 3, 2);
     private Vector3 offset;
+
+    private Vector3 behindRotate = new Vector3(25, 0, 0);
+    private Vector3 driverRotate = Vector3.zero;
     private bool toggleCam = false; // false = 3rd person view, true = driver view
     // Start is called before the first frame update
     void Start()
@@ -28,11 +31,11 @@ public class FollowPlayer2 : MonoBehaviour
             if (toggleCam)
             {
                 offset = driverOffset;
-                transform.Rotate(0, 0, 0);
+                transform.eulerAngles = driverRotate;
             } else
             {
                 offset = behindOffset;
-                transform.Rotate(25, 0, 0);
+                transform.eulerAngles = behindRotate;
             }
         }
     }

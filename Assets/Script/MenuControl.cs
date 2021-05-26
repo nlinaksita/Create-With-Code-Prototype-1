@@ -11,9 +11,12 @@ public class MenuControl : MonoBehaviour
     public Text player1Pause;
     public Text player2Pause;
     public Text startTitle;
+    public Text startInstructions;
+    public Text winTitle;
     public Text player2Instructions;
     private bool game1Paused; // Player 1 paused the game
     private bool game2Paused; // Player 2 paused the game
+    private bool multiplayer;
 
     public GameObject spawnManager;
 
@@ -32,6 +35,7 @@ public class MenuControl : MonoBehaviour
 
         // Build the start menu
         startTitle.gameObject.SetActive(true);
+        startInstructions.gameObject.SetActive(true);
         pauseMenu.gameObject.SetActive(true);
         gameModeButtons.gameObject.SetActive(true);
         Time.timeScale = 0;
@@ -52,7 +56,7 @@ public class MenuControl : MonoBehaviour
             Time.timeScale = 1;
             // deactivate all Pause UI components
             DeactivateAll();
-        } else if (Input.GetKeyDown(KeyCode.Delete) && !game1Paused && !game2Paused)
+        } else if (Input.GetKeyDown(KeyCode.Delete) && !game1Paused && !game2Paused && multiplayer)
         {
             game2Paused = true;
             Time.timeScale = 0;
@@ -75,7 +79,9 @@ public class MenuControl : MonoBehaviour
 
     public void ConfirmSinglePlayer()
     {
-        startTitle.gameObject.SetActive(false);
+        // Set game mode to single player
+        multiplayer = false;
+
         // Remove Player 2 elements
         player2Instructions.gameObject.SetActive(false);
         player2.GetComponent<Player2Controller>().ResetPosition();
@@ -102,7 +108,9 @@ public class MenuControl : MonoBehaviour
 
     public void ConfirmMultiPlayer()
     {
-        startTitle.gameObject.SetActive(false);
+        // Set game mode to multiplayer
+        multiplayer = true;
+
         // Modify Player 1 to multiplayer
         player1.GetComponent<Player1Controller>().SetMulti();
         player1Camera.GetComponent<FollowPlayer1>().SetMulti();
@@ -127,6 +135,9 @@ public class MenuControl : MonoBehaviour
 
     private void DeactivateAll()
     {
+        startTitle.gameObject.SetActive(false);
+        startInstructions.gameObject.SetActive(false);
+        winTitle.gameObject.SetActive(false);
         pauseMenu.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(false);
         gameModeButtons.gameObject.SetActive(false);
@@ -139,6 +150,7 @@ public class MenuControl : MonoBehaviour
         pauseMenu.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
         player1Pause.gameObject.SetActive(true);
+        startInstructions.gameObject.SetActive(true);
     }
 
     private void PlayerTwoPaused()
@@ -146,5 +158,14 @@ public class MenuControl : MonoBehaviour
         pauseMenu.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
         player2Pause.gameObject.SetActive(true);
+        startInstructions.gameObject.SetActive(true);
+    }
+
+    public void Win()
+    {
+        Time.timeScale = 0;
+        pauseMenu.gameObject.SetActive(true);
+        winTitle.gameObject.SetActive(true);
+        restartButton.gameObject.SetActive(true);
     }
 }

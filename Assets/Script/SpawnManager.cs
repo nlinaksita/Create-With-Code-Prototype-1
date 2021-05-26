@@ -9,10 +9,12 @@ public class SpawnManager : MonoBehaviour
     private float zBound = 150f;
     public GameObject[] vehiclePrefabs = new GameObject[4];
     public GameObject crateStack;
+    public GameObject menuControl;
 
     private int levelNumber = 1;
     private float vehicleSpeed = 10f;
     private float vehicleSpawnDelay = 3.0f;
+    private static int maxLevel = 10;
 
     public Text levelNumberText;
     // Start is called before the first frame update
@@ -43,7 +45,14 @@ public class SpawnManager : MonoBehaviour
     private void IncreaseDifficulty()
     {
         levelNumber++;
-        levelNumberText.text = "Level: " + levelNumber;
+        if (levelNumber > maxLevel)
+        {
+            menuControl.GetComponent<MenuControl>().Win();
+        }
+        else
+        {
+            levelNumberText.text = "Level: " + levelNumber;
+        }
         vehicleSpeed += 5f;
         vehicleSpawnDelay *= 0.8f;
     }

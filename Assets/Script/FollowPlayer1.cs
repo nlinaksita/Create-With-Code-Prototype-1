@@ -5,7 +5,7 @@ using UnityEngine;
 public class FollowPlayer1 : MonoBehaviour
 {
     public GameObject player;
-    public Camera player1Camera;
+    public Camera playerCamera;
 
     private Rect soloRect = new Rect(0, 0, 1, 1);
     private Rect multiRect = new Rect(0, 0, 0.5f, 1);
@@ -58,11 +58,11 @@ public class FollowPlayer1 : MonoBehaviour
 
     public void SetSolo()
     {
-        player1Camera.rect = soloRect;
+        playerCamera.rect = soloRect;
     }
 
     public void SetMulti()
     {
-        player1Camera.rect = multiRect;
+        playerCamera.rect = multiRect;
     }
 }

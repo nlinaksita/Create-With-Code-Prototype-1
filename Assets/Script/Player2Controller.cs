@@ -8,6 +8,12 @@ public class Player2Controller : MonoBehaviour
     private float speed = 20f;
     private float turnSpeed = 45f;
 
+    // Default speed values
+    private static float defaultSpeed = 20f;
+    private static float defaultTurnSpeed = 45f;
+    private static float increaseSpeed = 2f;
+    private static float increaseTurnSpeed = 5f;
+
     private float horizontalInput;
     private float forwardInput;
 
@@ -18,6 +24,8 @@ public class Player2Controller : MonoBehaviour
     // Scoring system
     public Text scoreText;
     public int score;
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +58,7 @@ public class Player2Controller : MonoBehaviour
         {
             // Update score
             score++;
-            scoreText.text = "P2 Score: " + score;
+            SetScoreText(score);
 
             // Reset player position
             transform.position = Vector3.zero;
@@ -70,7 +78,7 @@ public class Player2Controller : MonoBehaviour
         ResetPosition();
         ResetSpeed();
         score = 0;
-        scoreText.text = "P2 Score: " + score;
+        SetScoreText(score);
     }
 
     public void ResetPosition()
@@ -80,15 +88,20 @@ public class Player2Controller : MonoBehaviour
     }
     public void IncreaseSpeed()
     {
-        speed += 2f;
-        turnSpeed += 5f;
+        speed += increaseSpeed;
+        turnSpeed += increaseTurnSpeed;
     }
 
     public void ResetSpeed()
     {
-        speed = 20f;
-        turnSpeed = 45f;
+        speed = defaultSpeed;
+        turnSpeed = defaultTurnSpeed;
         score = 0;
-        scoreText.text = "P2 Score: " + score;
+        SetScoreText(score);
+    }
+
+    private void SetScoreText(int s)
+    {
+        scoreText.text = "P2 Score: " + s;
     }
 }

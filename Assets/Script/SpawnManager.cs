@@ -14,7 +14,7 @@ public class SpawnManager : MonoBehaviour
     private int levelNumber = 1;
     private float vehicleSpeed = 10f;
     private float vehicleSpawnDelay = 3.0f;
-    private static int maxLevel = 2;
+    private static int maxLevel = 10;
 
     public Text levelNumberText;
     // Start is called before the first frame update
@@ -54,7 +54,7 @@ public class SpawnManager : MonoBehaviour
             levelNumberText.text = "Level: " + levelNumber;
         }
         vehicleSpeed += 5f;
-        vehicleSpawnDelay *= 0.8f;
+        vehicleSpawnDelay *= 0.83f;
     }
 
     // Generate a spawn position
@@ -65,8 +65,11 @@ public class SpawnManager : MonoBehaviour
 
     public void LevelUp()
     {
+        // Clear the board
         Cleanup();
+        // Increase the speed and spawn rate of incoming vehicles
         IncreaseDifficulty();
+        // Start a new invoke
         InvokeRepeating("SpawnVehicle", 0.1f, vehicleSpawnDelay);
     }
 

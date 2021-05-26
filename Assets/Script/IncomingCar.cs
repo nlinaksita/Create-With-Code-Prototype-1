@@ -25,8 +25,6 @@ public class IncomingCar : MonoBehaviour
         if (transform.position.z <= zBound)
         {
             Destroy(gameObject);
-            vehicleSpeed += 10f;
-            
         }
     }
 }

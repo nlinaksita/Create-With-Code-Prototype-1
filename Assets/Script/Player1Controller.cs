@@ -8,6 +8,12 @@ public class Player1Controller : MonoBehaviour
     private float speed = 20f;
     private float turnSpeed = 45f;
 
+    // Default values
+    private static float defaultSpeed = 20f;
+    private static float defaultTurnSpeed = 45f;
+    private static float increaseSpeed = 2f;
+    private static float increaseTurnSpeed = 5f;
+
     private float horizontalInput;
     private float forwardInput;
 
@@ -25,6 +31,8 @@ public class Player1Controller : MonoBehaviour
     {
         spawnManager = GameObject.Find("SpawnManager");
         player2 = GameObject.Find("Player2");
+
+        // Background splash screen will be of a multiplayer game
         SetMulti();
     }
 
@@ -53,7 +61,7 @@ public class Player1Controller : MonoBehaviour
         {
             // Update score
             score++;
-            scoreText.text = "P1 Score: " + score;
+            SetScoreText(score);
 
             // Reset player position
             transform.position = Vector3.zero;
@@ -76,37 +84,44 @@ public class Player1Controller : MonoBehaviour
 
     public void SetMulti()
     {
+        // Set startPosition to multiplayer start position (left of center)
         startPosition = multiStartPosition;
         ResetPosition();
         ResetSpeed();
         score = 0;
-        scoreText.text = "P1 Score: " + score;
+        SetScoreText(score);
     }
 
     public void SetSolo()
     {
+        // Set startPosition to solo start position (left of center)
         startPosition = soloStartPosition;
         ResetPosition();
         ResetSpeed();
         score = 0;
-        scoreText.text = "P1 Score: " + score;
+        SetScoreText(score);
     }
 
     public void IncreaseSpeed()
     {
-        speed += 2f;
-        turnSpeed += 5f;
+        speed += increaseSpeed;
+        turnSpeed += increaseTurnSpeed;
     }
 
     private void ResetSpeed()
     {
-        speed = 20f;
-        turnSpeed = 45f;
+        speed = defaultSpeed;
+        turnSpeed = defaultTurnSpeed;
     }
 
     private void ResetScore()
     {
         score = 0;
-        scoreText.text = "P1 Score: " + score;
+        SetScoreText(score);
+    }
+
+    private void SetScoreText(int s)
+    {
+        scoreText.text = "P1 Score: " + s;
     }
 }

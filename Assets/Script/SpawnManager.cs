@@ -75,6 +75,27 @@ public class SpawnManager : MonoBehaviour
 
     public void LevelUp()
     {
+        Cleanup();
+        IncreaseDifficulty();
+        InvokeRepeating("SpawnVehicle", 2.0f, vehicleSpawnDelay);
+    }
+
+    public void ResetGame()
+    {
+        // Cleanup objects
+        Cleanup();
+        
+        // Reset variables
+        waveNumber = 1;
+        vehicleSpeed = 10.0f;
+        vehicleSpawnDelay = 3.0f;
+
+        // Restart the invoke
+        InvokeRepeating("SpawnVehicle", 2.0f, vehicleSpawnDelay);
+    }
+
+    public void Cleanup()
+    {
         // Stop the current invoke
         CancelInvoke();
 
@@ -89,9 +110,5 @@ public class SpawnManager : MonoBehaviour
         {
             Destroy(enemy);
         }
-        IncreaseDifficulty();
-        InvokeRepeating("SpawnVehicle", 2.0f, vehicleSpawnDelay);
     }
-
-    
 }

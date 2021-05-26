@@ -5,6 +5,11 @@ using UnityEngine;
 public class FollowPlayer1 : MonoBehaviour
 {
     public GameObject player;
+    public Camera player1Camera;
+
+    private Rect soloRect = new Rect(0, 0, 1, 1);
+    private Rect multiRect = new Rect(0, 0, 0.5f, 1);
+
     private Vector3 behindOffset = new Vector3(0, 5, -7);
     private Vector3 driverOffset = new Vector3(0, 3, 2);
     private Vector3 offset;
@@ -46,5 +51,15 @@ public class FollowPlayer1 : MonoBehaviour
         {
             transform.rotation = player.transform.rotation;
         }
+    }
+
+    public void SetSolo()
+    {
+        player1Camera.rect = soloRect;
+    }
+
+    public void SetMulti()
+    {
+        player1Camera.rect = multiRect;
     }
 }

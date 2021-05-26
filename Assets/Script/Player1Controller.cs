@@ -12,12 +12,15 @@ public class Player1Controller : MonoBehaviour
 
     private GameObject spawnManager;
     private GameObject player2;
-    private Vector3 startPosition = new Vector3(-3, 0, 0);
+    private Vector3 soloStartPosition = Vector3.zero;
+    private Vector3 multiStartPosition = new Vector3(-3, 0, 0);
+    private Vector3 startPosition;
     // Start is called before the first frame update
     void Start()
     {
         spawnManager = GameObject.Find("SpawnManager");
         player2 = GameObject.Find("Player2");
+        SetMulti();
     }
 
     // Update is called once per frame
@@ -56,5 +59,18 @@ public class Player1Controller : MonoBehaviour
     {
         transform.rotation = Quaternion.identity;
         transform.position = startPosition;
+    }
+
+    public void SetMulti()
+    {
+        startPosition = multiStartPosition;
+        ResetPosition();
+
+    }
+
+    public void SetSolo()
+    {
+        startPosition = soloStartPosition;
+        ResetPosition();
     }
 }
